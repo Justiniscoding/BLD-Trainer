@@ -17,9 +17,19 @@
         <label for="dontshow">Don't show this again</label>
     </dialog>
     <button on:click={resetEverything}>Reset</button>
+
+    <section>
+        <div class="pairs">
+            {#each Object.entries(donePairs) as pair}
+                <LetterListItem pair={pair[0]} word={pair[1]} on:removePair={removePair}/>
+            {/each}
+        </div>
+    </section>
 </main>
 
 <script>
+    import LetterListItem from "./lib/LetterListItem.svelte"
+
     import { onMount } from "svelte";
 
     const letters = "abcdefghijklmnopqrstuvwx".toUpperCase().split("");
@@ -49,6 +59,10 @@
         donePairCount++;
         pairText = "";
         pair = randomPair();
+        savePairs();
+    }
+
+    function savePairs(){
         localStorage.pairs = JSON.stringify(pairs);
         localStorage.donePairs = JSON.stringify(donePairs);
     }
@@ -91,6 +105,14 @@
         localStorage.clear();
         location.reload();
     }
+
+    function removePair(event){
+        var removedPair = event.detail;
+        pairs.push(removedPair);
+        delete donePairs[removedPair];
+        donePairCount--;
+        savePairs()
+    }
 </script>
 
 <style>
@@ -125,5 +147,20 @@
 
     ::backdrop{
         background-color: rgba(0,0,0,0.5);
+    }
+
+    .pairs{
+        /* display:flex;
+
+        flex-direction: row;
+        flex-wrap: wrap;
+        flex-basis: calc(100% / 5);
+        
+        justify-content: center;
+
+        gap:3rem; */
+        display:grid;
+        gap:3rem;
+        grid-template-columns: 20fr 20fr 20fr 20fr 20fr;
     }
 </style>
