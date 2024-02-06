@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "test": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build --base=BLD-Trainer",
+    "preview": "vite preview",
+    "deploy": "npx gh-pages -d dist -b master"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "gh-pages": "^6.1.1",
     "svelte": "^4.2.8",
     "vite": "^5.0.8"
   }
