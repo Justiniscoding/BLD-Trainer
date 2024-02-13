@@ -17,6 +17,7 @@
         <label for="dontshow">Don't show this again</label>
     </dialog>
     <button on:click={resetEverything}>Reset</button>
+    <button on:click={exportData}>Export to Anki</button>
 
     <section>
         <div class="pairs">
@@ -112,6 +113,23 @@
         delete donePairs[removedPair];
         donePairCount--;
         savePairs()
+    }
+
+    function exportData(){
+        var a = document.createElement("a");
+        var text = "";
+
+        Object.keys(donePairs).forEach(key => {
+            text += `${key},${donePairs[key]}\n`;
+        });
+
+        console.log(text)
+
+        var file = new Blob([text], {type: "text/plain"});
+        a.href = URL.createObjectURL(file);
+        a.download = "bldpairs.csv";
+
+        a.click();
     }
 </script>
 
