@@ -54,6 +54,19 @@
     }
 
     function addPair(form){
+        var dupe = false;
+        Object.keys(donePairs).forEach(key => {
+            if(donePairs[key] == pairText){
+                form.target.setCustomValidity("Letter pair already in use");
+                console.log(form)
+                pairText = "";
+                dupe = true;
+                return;
+            }
+        });
+        if(dupe){
+            return;
+        }
         form.preventDefault();
         pairs.splice(pairs.findIndex(el => el == pair), 1);
         donePairs[pair] = pairText;
