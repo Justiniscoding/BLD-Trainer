@@ -116,6 +116,15 @@
     }
 
     function resetEverything(){
+        if(!confirm("Are you sure you want to reset everything?")){
+            return;
+        }
+        if(!confirm("Are you sure you are sure?")){
+            return;
+        }
+        if(!confirm("Are you sure you are sure that you are sure?")){
+            return;
+        }
         localStorage.clear();
         location.reload();
     }
