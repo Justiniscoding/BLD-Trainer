@@ -56,7 +56,7 @@
     function addPair(form){
         var dupe = false;
         Object.keys(donePairs).forEach(key => {
-            if(donePairs[key] == pairText){
+            if(donePairs[key].toLowerCase() == pairText.toLowerCase()){
                 form.target.setCustomValidity("Letter pair already in use");
                 console.log(form)
                 pairText = "";
